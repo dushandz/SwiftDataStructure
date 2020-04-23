@@ -5,7 +5,7 @@
 //  Created by dushandz on 2020/4/15.
 //
 
-//MARK: - LinkedList
+//MARK: - Node
 
 public class Node<T> {
     public var value:T
@@ -24,6 +24,8 @@ extension Node: CustomStringConvertible {
          return "\(value) ->" + String(describing: next) + " "
      }
 }
+
+//MARK: - LinkedList
 
 public struct LinkedList<Value> {
     public var head: Node<Value>?
@@ -45,14 +47,14 @@ extension LinkedList: CustomStringConvertible {
 }
 
 extension LinkedList {
-    
+    ///头插
     public mutating func push(_ value: Value) {
         head = Node(value, next: head)
         if tail == nil {
             tail = head
         }
     }
-    
+    ///尾插
     public mutating func append(_ value: Value) {
         guard !isEmpty else {
             push(value)
@@ -100,7 +102,7 @@ extension LinkedList {
             return nil
         }
         // 是否是特殊情况 只有一个
-        guard head?.next != nil else {
+        guard head.next != nil else {
             return pop()
         }
         
@@ -118,8 +120,21 @@ extension LinkedList {
         
     }
     
+    @discardableResult
     public mutating func remove(at index: Int) -> Value? {
+        if index < 0 {
+            return nil
+        }
         
+        if index == 0 {
+            let value = head?.value
+            head = head?.next
+            return value
+        }
+        let preNode = node(at: index - 1)
+        let findNode = node(at: index)
+        preNode?.next = findNode?.next
+        return findNode?.value
     }
 }
 

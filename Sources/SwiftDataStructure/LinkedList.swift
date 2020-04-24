@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  LinkedList.swift
 //  
 //
 //  Created by dushandz on 2020/4/15.
@@ -47,14 +47,14 @@ extension LinkedList: CustomStringConvertible {
 }
 
 extension LinkedList {
-    ///头插
+    ///head insert
     public mutating func push(_ value: Value) {
         head = Node(value, next: head)
         if tail == nil {
             tail = head
         }
     }
-    ///尾插
+    ///tail insert
     public mutating func append(_ value: Value) {
         guard !isEmpty else {
             push(value)
@@ -64,16 +64,6 @@ extension LinkedList {
         tail = tail!.next
     }
     
-    @discardableResult
-    public mutating func insert(_ value: Value, after node:Node<Value>) -> Node<Value> {
-        ///判断引用类型是否指向同一个对象
-        guard tail !== node else {
-            append(value)
-            return tail!
-        }
-        node.next = Node(value, next: node.next)
-        return node.next!
-    }
     
     public func node(at index: Int)  -> Node<Value>? {
         var currentNode = index < 0 ? nil : head
@@ -84,6 +74,19 @@ extension LinkedList {
         }
         return currentNode
     }
+    
+    @discardableResult
+    public mutating func insert(_ value: Value, after node:Node<Value>) -> Node<Value> {
+        // is tail is equal to node in reference.
+        guard tail !== node else {
+            append(value)
+            return tail!
+        }
+        node.next = Node(value, next: node.next)
+        return node.next!
+    }
+    
+
     
     @discardableResult
     public mutating func pop() -> Value? {
@@ -97,7 +100,7 @@ extension LinkedList {
     }
     
     public mutating func removeLast() -> Value? {
-        // 这里 不用 isEmpty 的 原因是 guard 语法可以解包 head 然后给 后面用
+        // use guard statment can declare an Node type. you can use in function.
         guard let head = head else {
             return nil
         }

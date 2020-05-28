@@ -46,6 +46,7 @@ extension LinkedList: CustomStringConvertible {
     }
 }
 
+//MARK: - LinkedList - basic
 extension LinkedList {
     ///head insert
     public mutating func push(_ value: Value) {
@@ -65,7 +66,7 @@ extension LinkedList {
     }
     
     
-    public func node(at index: Int)  -> Node<Value>? {
+    public func node(at index: Int) -> Node<Value>? {
         var currentNode = index < 0 ? nil : head
         var currentIndex = 0
         while currentNode != nil && currentIndex < index {
@@ -104,7 +105,7 @@ extension LinkedList {
         guard let head = head else {
             return nil
         }
-        // 是否是特殊情况 只有一个
+        // is only one element
         guard head.next != nil else {
             return pop()
         }
@@ -112,6 +113,7 @@ extension LinkedList {
         var prev = head
         var current = head
         
+        // upwarped option value 
         while let next = current.next {
             prev = current
             current = next
@@ -141,5 +143,48 @@ extension LinkedList {
     }
 }
 
+//MARK: - LinkedList - collection
+
+extension LinkedList: Collection {
+    public func index(after i: Index) -> Index {
+        return Index(node: i.node?.next)
+    }
+    
+    public var startIndex: Index {
+        return Index(node: head)
+    }
+    
+    public var endIndex: Index {
+        return Index(node: tail?.next)
+    }
+    
+    public subscript(position: Index) -> Value {
+        return position.node!.value
+    }
+    
+    public struct Index: Comparable  {
+        public var node: Node<Value>?
+        
+        static public func ==(lhs: Index, rhs: Index) -> Bool {
+            switch (lhs.node,rhs.node) {
+            case let (left? , right?):
+                return left.next === right.next
+            case (nil, nil):
+                return true
+            default:
+                return false
+            }
+        }
+        
+        static public func <(lhs: Index, rhs: Index) -> Bool {
+            guard lhs != rhs else {
+                return false
+            }
+            let nodes = sequence(first: lhs.node, next: { $0?.next})
+            return nodes.contains { $0 === rhs.node }
+        }
+    }
+    
+}
 
 

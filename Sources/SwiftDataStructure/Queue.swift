@@ -7,6 +7,7 @@
 
 //First In First Out
 
+//MARK: - Array-based implementation
 struct Queue<Element> {
     private var storage: [Element] = [Element]()
     
@@ -27,3 +28,6 @@ struct Queue<Element> {
         self.isEmpty ? nil : self.storage.popLast()
     }
 }
+
+//MARK: - Doubly linked list implementation
+

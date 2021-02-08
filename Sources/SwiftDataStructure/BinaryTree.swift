@@ -25,18 +25,18 @@ extension BinaryNode {
         case Preorder,Inorder,Postorder
     }
     
-    func travelInOrder(order:BinaryNodeTravelOrder visit: (BinaryNode) -> Void) {
+    func travelInOrder(order:BinaryNodeTravelOrder, visit: (BinaryNode) -> Void) {
         if order == .Postorder {
             visit(self)
         }
         
-        self.leftChild?.travelInOrder(visit: visit)
+        self.leftChild?.travelInOrder(order: order, visit: visit)
         
         if order == .Inorder {
             visit(self)
         }
         
-        self.rightChild?.travelInOrder(visit: visit)
+        self.rightChild?.travelInOrder(order: order, visit: visit)
         
         if order == .Preorder {
             visit(self)

@@ -7,11 +7,19 @@
 
 import Foundation
 
-public struct Stack<Element> {
+public struct Stack<Element>: CustomStringConvertible, ExpressibleByArrayLiteral {
+    
+    public typealias ArrayLiteralElement = Element
+    
     private var storage: [Element] = []
     
     public init() {}
+    
     public init(_ elements: [Element]) {
+        storage = elements
+    }
+    
+    public init(arrayLiteral elements: Element...) {
         storage = elements
     }
     
@@ -30,5 +38,25 @@ public struct Stack<Element> {
     
     public var isEmpty: Bool {
         return peek() == nil
+    }
+    
+    public var description: String {
+        storage.reversed().map { "\($0)" }.joined(separator: "-")
+    }
+}
+
+
+/// Challenge 1 Reverse Array
+public extension Array {
+    func reversePrint() {
+        var stack = Stack<Element>()
+        
+        for i in self {
+            stack.push(i)
+        }
+        
+        while let v = stack.pop() {
+            print(v)
+        }
     }
 }

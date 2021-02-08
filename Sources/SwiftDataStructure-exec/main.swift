@@ -7,3 +7,14 @@
 
 import SwiftDataStructure
 
+let a = ["2","3"]
+
+a.reversePrint()
+
+//a.reversepr
+
+
+
+
+
+

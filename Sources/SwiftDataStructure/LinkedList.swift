@@ -16,6 +16,8 @@ public class Node<T> {
     }
 }
 
+//MARK: - CustomStringConvertible
+
 extension Node: CustomStringConvertible {
     public var description: String {
          guard let next = next else {
@@ -37,6 +39,8 @@ public struct LinkedList<Value> {
     }
 }
 
+//MARK: - CustomStringConvertible
+
 extension LinkedList: CustomStringConvertible {
     public var description: String {
         guard let head = head else {
@@ -46,7 +50,8 @@ extension LinkedList: CustomStringConvertible {
     }
 }
 
-//MARK: - LinkedList - basic
+//MARK: - LinkedList
+
 extension LinkedList {
     ///head insert
     public mutating func push(_ value: Value) {
@@ -143,7 +148,7 @@ extension LinkedList {
     }
 }
 
-//MARK: - LinkedList - collection
+//MARK: - LinkedList 
 
 extension LinkedList: Collection {
     public func index(after i: Index) -> Index {

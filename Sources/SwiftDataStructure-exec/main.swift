@@ -7,14 +7,4 @@
 
 import SwiftDataStructure
 
-let a = ["2","3"]
-
-a.reversePrint()
-
-//a.reversepr
-
-
-
-
-
-
+print(Stack<String.Element>.expample())
